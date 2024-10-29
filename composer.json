@@ -24,7 +24,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Shkiper\\ModelAuditLog\\ModelAuditLogProvider"
+                "Shkiper\\ModelAuditLog\\ModelAuditLogServiceProvider"
             ]
         }
     }

@@ -1,0 +1,31 @@
+{
+    "name": "shkiper/model-audit-log",
+    "description": "Listen model events and log into database",
+    "type": "laravel-package",
+    "keywords": ["laravel", "logging", "audit"],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Shkiper\\ModelAuditLog\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oleksandr Pavlenko"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^9|^10|^11",
+        "illuminate/database": "^9|^10|^11"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Shkiper\\ModelAuditLog\\ModelAuditLogProvider"
+            ]
+        }
+    }
+}

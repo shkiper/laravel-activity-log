@@ -12,8 +12,9 @@ return new class extends Migration
             $table->id();
             $table->string('model');
             $table->string('field');
-            $table->longText('old_value');
-            $table->longText('new_value');
+            $table->longText('old_value')->nullable();
+            $table->longText('new_value')->nullable();
+            $table->string('description')->nullable();
             $table->string('model_id');
             $table->string('user_id')->nullable();
             $table->dateTime('event_time');

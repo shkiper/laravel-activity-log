@@ -1,12 +1,12 @@
 {
-    "name": "shkiper/model-audit-log",
-    "description": "Listen model events and log into database",
+    "name": "shkiper/laravel-activity-log",
+    "description": "Activity logging package for Laravel 12 applications",
     "type": "laravel-package",
     "keywords": ["laravel", "logging", "audit"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Shkiper\\ModelAuditLog\\": "src/"
+            "Shkiper\\ActivityLog\\": "src/"
         }
     },
     "authors": [
@@ -17,15 +17,18 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": "^8.0",
-        "illuminate/support": "^9|^10|^11|^12",
-        "illuminate/database": "^9|^10|^11|^12"
+        "php": "^8.2",
+        "illuminate/support": "^12",
+        "illuminate/database": "^12"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Shkiper\\ModelAuditLog\\ModelAuditLogServiceProvider"
-            ]
+                "YourName\\ActivityLog\\ActivityLogServiceProvider"
+            ],
+            "aliases": {
+                "ActivityLog": "YourName\\ActivityLog\\Facades\\ActivityLog"
+            }
         }
     }
 }

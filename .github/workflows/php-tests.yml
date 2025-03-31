@@ -24,9 +24,10 @@ jobs:
         run: composer self-update && composer install && composer dump-autoload
       - name: Run tests and collect coverage
         run: vendor/bin/phpunit --coverage-clover coverage.xml
-        with:
-          file: ./coverage.xml
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
+        with:
+          file: ./coverage.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}

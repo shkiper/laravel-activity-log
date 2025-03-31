@@ -21,12 +21,10 @@ jobs:
           coverage: xdebug
 
       - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Run PHPUnit tests with coverage
-        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --coverage-clover coverage.xml .
-
+        run: composer self-update && composer install && composer dump-autoload
+      - name: Run tests and collect coverage
+        run: vendor/bin/phpunit --coverage-clover coverage.xml .
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}

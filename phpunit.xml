@@ -24,6 +24,9 @@
         <exclude>
             <directory suffix=".php">src/Facades</directory>
         </exclude>
+        <report>
+            <clover outputFile="coverage.xml"/>
+        </report>
     </coverage>
     <php>
         <env name="DB_CONNECTION" value="testing"/>

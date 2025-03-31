@@ -1,3 +1,6 @@
+[![PHP Tests](https://github.com/username/repo/actions/workflows/php-tests.yml/badge.svg)](https://github.com/username/repo/actions/workflows/php-tests.yml)
+[![codecov](https://codecov.io/gh/username/repo/branch/main/graph/badge.svg)](https://codecov.io/gh/username/repo)
+
 # Laravel Activity Log
 
 A package for logging actions and changes in models for Laravel 12. Developed with support for different data stores and Laravel 12.

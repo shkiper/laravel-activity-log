@@ -2,7 +2,6 @@
 
 namespace Shkiper\ActivityLog;
 
-use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -19,12 +18,12 @@ class ActivityLogger
     protected $subject = null;
     protected $causer = null;
     protected $batchUuid = null;
-
+    protected $auth;
     public function __construct(
         protected ActivityLogRepository $repository,
-        protected AuthManager $auth = new \Illuminate\Auth\AuthManager(app()),
         protected Repository $config = new \Illuminate\Config\Repository()
     ) {
+        $this->auth = new \Illuminate\Auth\AuthManager(app());
     }
 
     public function performedOn(Model $subject): self
@@ -32,6 +31,11 @@ class ActivityLogger
         $this->subject = $subject;
 
         return $this;
+    }
+
+    public function on(Model $subject): self
+    {
+        return $this->performedOn($subject);
     }
 
     public function causedBy($causer): self
@@ -43,6 +47,10 @@ class ActivityLogger
 
     public function causedByCurrentUser(): self
     {
+        if ($this->causer !== null) {
+            return $this;
+        }
+
         $guard = $this->config->get('activity-log.default_auth_guard');
 
         if (is_null($guard)) {
@@ -175,6 +183,11 @@ class ActivityLogger
         $this->reset();
 
         return $this;
+    }
+
+    public function getBatchUuid(): string|null
+    {
+        return $this->batchUuid;
     }
 
     protected function reset(): self

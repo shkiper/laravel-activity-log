@@ -2,3 +2,4 @@ vendor
 composer.lock
 docker-compose.yml
 Dockerfile
+xdebug.ini

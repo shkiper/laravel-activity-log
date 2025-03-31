@@ -8,25 +8,18 @@ use Shkiper\ActivityLog\Facades\ActivityLog;
 
 trait LogsActivity
 {
-    protected static $logAttributes = [];
-    protected static $logName = 'default';
     protected static $logOnlyDirty = true;
     protected static $submitEmptyLogs = false;
-    protected static $logEvents = ['created', 'updated', 'deleted'];
     protected static $ignoreChangedAttributes = [];
     protected static $batchUuid = null;
 
     public static function bootLogsActivity()
     {
         static::eventsToBeRecorded()->each(function ($eventName) {
-            // Handle model events
-            if (Str::contains($eventName, 'eloquent.')) {
-                $event = Str::after($eventName, 'eloquent.');
-                static::registerModelEvent($event, function (Model $model) use ($event) {
-                    $model->logActivity($event);
-                });
-                return;
-            }
+
+            static::registerModelEvent($eventName, function (Model $model) use ($eventName) {
+                $model->logActivity($eventName);
+            });
 
             // Handle regular events
             app('events')->listen($eventName, function (string $event, array $data) use ($eventName) {
@@ -106,24 +99,38 @@ trait LogsActivity
 
     public static function eventsToBeRecorded(): \Illuminate\Support\Collection
     {
-        return collect(static::$logEvents)->map(function ($eventName) {
-            return "eloquent.{$eventName}: " . static::class;
-        });
+        if (isset(static::$logEvents)) {
+            return collect(static::$logEvents);
+        }
+
+        $events = collect([
+            'created',
+            'updated',
+            'deleted',
+        ]);
+
+        return $events;
     }
 
     public function getActivityLogName(): string
     {
-        return static::$logName;
+        if (isset(static::$logName)) {
+            return static::$logName;
+        }
+        return 'default';
     }
 
     public function getActivityLogAttributes(): array
     {
-        return static::$logAttributes;
+        if (isset(static::$logAttributes)) {
+            return static::$logAttributes;
+        }
+        return $this->fillable;
     }
 
     public function getActivityLogEvents(): array
     {
-        return static::$logEvents;
+        return self::eventsToBeRecorded()->toArray();
     }
 
     public function getActivityChanges(): array

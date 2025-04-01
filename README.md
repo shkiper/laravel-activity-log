@@ -1,4 +1,4 @@
-[![PHP Tests](https://github.com/shkiper/repo/actions/workflows/php-tests.yml/badge.svg)](https://github.com/shkiper/repo/actions/workflows/php-tests.yml)
+[![PHP Tests](https://github.com/shkiper/laravel-activity-log/actions/workflows/php-tests.yml/badge.svg)](https://github.com/shkiper/laravel-activity-log/actions/workflows/php-tests.yml)
 [![codecov](https://codecov.io/gh/shkiper/laravel-activity-log/branch/main/graph/badge.svg)](https://codecov.io/gh/shkiper/laravel-activity-log)
 
 # Laravel Activity Log

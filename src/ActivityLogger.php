@@ -19,11 +19,12 @@ class ActivityLogger
     protected $causer = null;
     protected $batchUuid = null;
     protected $auth;
+    protected Repository $config;
     public function __construct(
         protected ActivityLogRepository $repository,
-        protected Repository $config = new \Illuminate\Config\Repository()
     ) {
         $this->auth = new \Illuminate\Auth\AuthManager(app());
+        $this->config = config();
     }
 
     public function performedOn(Model $subject): self
